@@ -118,7 +118,7 @@ export class ChatScreen extends React.Component {
         textAlign: 'right',
         marginRight: 10,
         marginBottom: 5
-      }}>{item.owner.username}</Text>
+      }}>{item.user.username}</Text>
       <Text style={{
       fontSize: 16
     }}>{item.text}</Text></View>
@@ -134,6 +134,7 @@ const POST_MESSAGE = gql`
         }
     }
 `
+
 ChatScreen.navigationOptions = {
   title: 'Chat'
 };

@@ -32,7 +32,7 @@ class RoomsStore {
                     messages{
                         id
                         text
-                        owner {
+                        user {
                             id
                             username
                         }
@@ -67,7 +67,7 @@ class RoomsStore {
                     ){
                         id
                         text
-                        owner{
+                        user {
                             id
                             username
                         }
@@ -95,7 +95,7 @@ class RoomsStore {
               ){
                   id
                   text
-                  owner{
+                  user {
                       username
                   }
               }
