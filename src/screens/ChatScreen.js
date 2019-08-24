@@ -7,8 +7,10 @@ import {
   Dimensions,
   Keyboard,
   TextInput,
-  UIManager
+  UIManager,
+  StyleSheet
 } from 'react-native';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 import { roomsStore } from '../stores/RoomsStore';
 import { client, gql } from '../services/ApolloService';
 import { Button, Input } from 'react-native-elements';
@@ -118,7 +120,13 @@ export class ChatScreen extends React.Component {
           data={this.state.room.messages}
           renderItem={this.renderItem}
         />
-        <Animated.View style={[{marginBottom: 5, backgroundColor: 'white', borderTopWidth: 1, borderTopColor: 'pink', transform: [{translateY: shift}] }]}>
+        <Animated.View style={[{
+          marginBottom: 5,
+          backgroundColor: 'white',
+          borderTopWidth: 1,
+          borderTopColor: 'pink',
+          transform: [{translateY: shift}]
+        }]}>
           <Input
             containerStyle={{
               marginTop: 10,
@@ -149,34 +157,31 @@ export class ChatScreen extends React.Component {
 
   renderItem = ({item, index}) => {
     console.log(item)
-    return <View
-      style={{
-        backgroundColor: 'pink',
-        borderRadius: 20,
-        borderWidth: 2,
-        borderTopWidth: index === 0 ? 2 : 0,
-        borderColor: 'pink',
-        paddingTop: 15,
-        paddingBottom: 15,
-        paddingRight: 10,
-        paddingLeft: 10,
-        marginTop: 5,
-        marginBottom: 5,
-        // width: 'auto',
-        marginLeft: '1%',
-        alignSelf: 'flex-start',
-        marginRight: '1%'
-      }}>
-      <Text style={{
-        fontSize: 14,
-        color: 'purple',
-        textAlign: 'right',
-        marginRight: 10,
-        marginBottom: 5
-      }}>{item.user.username}</Text>
-      <Text style={{
-      fontSize: 16
-    }}>{item.text}</Text></View>
+    return (
+      <View style={[styles.balloon, {backgroundColor: '#1084ff'}]}>
+        <Text style={{paddingTop: 5, color: 'white'}}>{item.text}</Text>
+        <View
+          style={[
+            styles.arrowContainer,
+            styles.arrowLeftContainer,
+          ]}
+        >
+          <View style={styles.arrowLeft} />
+        </View>
+      </View>
+  //     <View
+  //   style={styles.fromMe}>
+  //     <Text style={{
+  //     fontSize: 14,
+  //       color: 'purple',
+  //       textAlign: 'right',
+  //       marginRight: 10,
+  //       marginBottom: 5
+  //   }}>{item.user.username}</Text>
+  // <Text style={{
+  // fontSize: 16
+  // }}>{item.text}</Text></View>
+    )
   }
 }
 const POST_MESSAGE = gql`
@@ -194,3 +199,59 @@ ChatScreen.navigationOptions = {
   title: 'Chat'
 };
 
+const styles = StyleSheet.create({
+  item: {
+    marginVertical: 14,
+    flexDirection: 'row'
+  },
+  itemIn: {
+    marginLeft: 10
+  },
+  itemOut: {
+    alignSelf: 'flex-end',
+    marginRight: 10
+  },
+  balloon: {
+    margin: 5,
+    maxWidth: scale(500),
+    paddingHorizontal: 15,
+    paddingTop: 10,
+    paddingBottom: 15,
+    borderRadius: 20,
+    alignSelf: 'flex-end'
+  },
+  arrowContainer: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    zIndex: -1
+    // backgroundColor: 'red'
+  },
+  arrowLeftContainer: {
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+    // backgroundColor: 'green'
+  },
+
+  arrowLeft: {
+    left: -20,
+  }
+});
+
+//
+// &:before {
+//   right:-7px;
+//   border-right:20px solid #0B93F6;
+//   border-bottom-left-radius: 16px 14px;
+//   transform:translate(0, -2px);
+// }
+//
+// &:after {
+//   right:-56px;
+//   width:26px;
+//   background:white;
+//   border-bottom-left-radius: 10px;
+//   transform:translate(-30px, -2px);
+// }

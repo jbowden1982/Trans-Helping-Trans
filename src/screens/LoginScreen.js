@@ -33,7 +33,7 @@ export class LoginScreen extends React.Component {
         justifyContent: 'center',
         alignItems: 'center'
       }}>
-        <Text h2={true}>Slim Chat</Text>
+        <Text h2={true}>Trans Helping Trans</Text>
         <View style={{
           width: '90%'
         }}>
