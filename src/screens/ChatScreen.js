@@ -227,12 +227,10 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
     zIndex: -1
-    // backgroundColor: 'red'
   },
   arrowLeftContainer: {
     justifyContent: 'center',
     alignItems: 'flex-start',
-    // backgroundColor: 'green'
   },
 
   arrowLeft: {
@@ -240,18 +238,3 @@ const styles = StyleSheet.create({
   }
 });
 
-//
-// &:before {
-//   right:-7px;
-//   border-right:20px solid #0B93F6;
-//   border-bottom-left-radius: 16px 14px;
-//   transform:translate(0, -2px);
-// }
-//
-// &:after {
-//   right:-56px;
-//   width:26px;
-//   background:white;
-//   border-bottom-left-radius: 10px;
-//   transform:translate(-30px, -2px);
-// }
