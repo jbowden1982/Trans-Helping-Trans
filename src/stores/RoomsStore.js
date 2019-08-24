@@ -53,7 +53,7 @@ class RoomsStore {
       let updatedRoom = await client.query({
         variables: {
           roomId: room.id,
-          orderBy: "createdAt_DESC"
+          orderBy: "createdAt_ASC"
         },
         query: gql`
             query Room($roomId: ID!, $orderBy: String){
@@ -104,7 +104,7 @@ class RoomsStore {
     }).subscribe((response) => {
       console.log(response)
       const updatedRoom = this.currentRoom.value;
-      updatedRoom.messages = [response.data.messages].concat(updatedRoom.messages);
+      updatedRoom.messages = updatedRoom.messages.concat(response.data.messages);
       this.currentRoom.next(updatedRoom)
 
     })
