@@ -1,5 +1,5 @@
 
-To try dev server install expo app.
+To try dev server that is running on google cloud(GKE) install expo app.
 
   https://apps.apple.com/us/app/expo-client/id982107779
   
@@ -17,3 +17,8 @@ To try dev server install expo app.
   open exp link
   
     https://exp.host/@ariatest/Trans-Helping-Trans 
+    
+    
+Prisma/GraphQL API Code Lives Here
+
+   https://github.com/jbowden1982/Trans-Helping-Trans-API
