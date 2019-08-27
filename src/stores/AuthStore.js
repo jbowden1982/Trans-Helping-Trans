@@ -5,8 +5,8 @@ import { AsyncStorage } from 'react-native';
 
 class AuthStore {
   isAuthenticated = new BehaviorSubject(false);
-  username = new BehaviorSubject('aria.bowden@icloud.com');
-  password = new BehaviorSubject('grx78941');
+  username = new BehaviorSubject(null);
+  password = new BehaviorSubject(null);
   jwt = new BehaviorSubject(null);
 
   constructor() {
@@ -37,9 +37,7 @@ class AuthStore {
         this.isAuthenticated.next(true);
         await AsyncStorage.setItem('jwt', res.data.login.token);
         this.jwt.next(res.data.login.token);
-        console.log('if');
       } else {
-        console.log('else')
         this.isAuthenticated.next(false);
       }
     } catch (err) {
@@ -65,6 +63,15 @@ class AuthStore {
     } else {
       this.isAuthenticated.next(false);
     }
+  }
+
+  logout() {
+    this.jwt.next(null);
+    this.username.next(null);
+    this.password.next(null);
+    AsyncStorage.removeItem('jwt');
+    console.log('logging out');
+    this.isAuthenticated.next(false);
   }
 }
 

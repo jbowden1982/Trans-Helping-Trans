@@ -1,5 +1,7 @@
 import React from 'react';
 import { ExpoConfigView } from '@expo/samples';
+import { Button } from 'react-native-elements';
+import { authStore } from '../stores/AuthStore';
 
 export class SettingsScreen extends React.Component {
 
@@ -9,11 +11,15 @@ export class SettingsScreen extends React.Component {
      * we just wanted to give you a quick view of your config.
      */
     return (
-      <ExpoConfigView />
+      <Button title="Log Out" onPress={this.onLogOut}></Button>
     );
+  }
+
+  onLogOut() {
+    authStore.logout();
   }
 }
 
 SettingsScreen.navigationOptions = {
-  title: 'app.json',
+  title: 'Settings',
 };

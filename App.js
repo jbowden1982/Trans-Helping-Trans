@@ -10,6 +10,7 @@ import { client } from './src/services/ApolloService';
 import { ApolloProvider } from '@apollo/react-hooks';
 import { AsyncStorage } from 'react-native';
 import { OnBoardingNavigator } from './src/navigation/OnBoardingNavigator';
+import { userStore } from './src/stores/UserStore';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -72,12 +73,14 @@ export default class App extends React.Component {
   loadResourcesAsync = async () => {
     const jwt = await AsyncStorage.getItem('jwt');
 
+    console.log(jwt);
     if (jwt !== null) {
       authStore.jwt.next(jwt);
     } else {
       this.setState({isAuthenticated: false});
       authStore.isAuthenticated.next(false);
     }
+
 
     await Promise.all([
       Asset.loadAsync([
@@ -92,6 +95,13 @@ export default class App extends React.Component {
         'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf'),
       }),
     ]);
+
+
+    try {
+      const res = await userStore.getCurrentUser();
+    } catch (err) {
+      authStore.logout();
+    }
   }
 }
 

@@ -14,6 +14,7 @@ import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 import { roomsStore } from '../stores/RoomsStore';
 import { client, gql } from '../services/ApolloService';
 import { Button, Input } from 'react-native-elements';
+import { userStore } from '../stores/UserStore';
 
 const { State: TextInputState } = TextInput;
 
@@ -158,7 +159,16 @@ export class ChatScreen extends React.Component {
   renderItem = ({item, index}) => {
     console.log(item)
     return (
-      <View style={[styles.balloon, {backgroundColor: '#1084ff'}]}>
+      <View style={[styles.balloon, {
+        backgroundColor: userStore.username === item.user.username ? '#ff00d2' : '#008bff',
+        alignSelf: userStore.username === item.user.username ? 'flex-end' : 'flex-start'
+      }]}>
+        {userStore.username !== item.user.username ? <Text style={{
+          fontSize: 14,
+          color: 'pink',
+          textAlign: 'left',
+          marginRight: 10,
+        }}>{item.user.username}</Text> : null}
         <Text style={{paddingTop: 5, color: 'white'}}>{item.text}</Text>
         <View
           style={[
@@ -217,8 +227,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     paddingTop: 10,
     paddingBottom: 15,
-    borderRadius: 20,
-    alignSelf: 'flex-end'
+    borderRadius: 20
   },
   arrowContainer: {
     position: 'absolute',

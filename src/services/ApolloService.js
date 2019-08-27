@@ -6,6 +6,9 @@ import { InMemoryCache } from 'apollo-cache-inmemory'
 import { SubscriptionClient } from "subscriptions-transport-ws";
 import { HttpLink } from 'apollo-link-http';
 
+// const URI = '35.231.117.110';
+const URI = '192.168.1.73';
+
 const hasSubscriptionOperation = ({ query: { definitions } }) =>
   definitions.some(
     ({ kind, operation }) =>
@@ -14,17 +17,17 @@ const hasSubscriptionOperation = ({ query: { definitions } }) =>
 
 let link = ApolloLink.split(hasSubscriptionOperation,
   new WebSocketLink({
-    uri: 'ws://192.168.1.73:4000',
+    uri: 'ws://' + URI + ':4000',
     options: {reconnect: true}
   }),
   new HttpLink({
-    uri: 'http://192.168.1.73:4000'
+    uri: 'http://' + URI + ':4000'
   }));
 
 export let client = new ApolloClient({
   cache: new InMemoryCache(),
   link: new WebSocketLink({
-    uri: 'ws://192.168.1.73:4000',
+    uri: 'ws://' + URI + ':4000',
     options: {reconnect: true}
   }),
   headers: {
@@ -38,7 +41,7 @@ function setAuthorization(token) {
     try {
       link = ApolloLink.split(hasSubscriptionOperation,
         new WebSocketLink({
-          uri: 'ws://192.168.1.73:4000',
+          uri: 'ws://' + URI + ':4000',
           options: {
             reconnect: true,
             headers: {
@@ -47,7 +50,7 @@ function setAuthorization(token) {
           }
         }),
         new HttpLink({
-          uri: 'http://192.168.1.73:4000',
+          uri: 'http://' + URI + ':4000',
           headers: {
             authorization: `Bearer ${token}`
           }
