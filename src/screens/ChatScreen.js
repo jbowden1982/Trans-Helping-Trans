@@ -63,7 +63,7 @@ export class ChatScreen extends React.Component {
     this.keyboardDidShowSub.remove();
     this.keyboardDidHideSub.remove();
 
-    roomsStore.currentRoom.unsubscribe();
+
   }
 
   handleKeyboardDidShow = (event) => {

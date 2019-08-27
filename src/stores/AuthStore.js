@@ -1,6 +1,7 @@
 import { BehaviorSubject } from 'rxjs';
 import { client, gql, setAuthorization } from '../services/ApolloService';
 import { AsyncStorage } from 'react-native';
+import { userStore } from './UserStore';
 
 
 class AuthStore {
@@ -32,9 +33,12 @@ class AuthStore {
         mutation: LOGIN_USER
       });
       if (res.data.login.token) {
-        this.isAuthenticated.next(true);
+        userStore.username = res.data.login.user.username;
+        userStore.name = res.data.login.user.name;
+        userStore.email = res.data.login.user.email;
         await AsyncStorage.setItem('jwt', res.data.login.token);
         this.jwt.next(res.data.login.token);
+        this.isAuthenticated.next(true);
       } else {
         this.isAuthenticated.next(false);
       }
@@ -54,10 +58,12 @@ class AuthStore {
       mutation: SIGNUP_USER
     });
     if (res.data.signup.token) {
-      this.isAuthenticated.next( true);
+      userStore.username = res.data.signup.user.username;
+      userStore.name = res.data.signup.user.name;
+      userStore.email = res.data.signup.user.email;
       await AsyncStorage.setItem( 'jwt', res.data.signup.token);
       this.jwt.next(res.data.signup.token);
-
+      this.isAuthenticated.next( true);
     } else {
       this.isAuthenticated.next(false);
     }
@@ -80,6 +86,7 @@ const LOGIN_USER = gql`
         ){
             token
             user{
+                username
                 name
                 email
             }
@@ -98,6 +105,7 @@ const SIGNUP_USER = gql`
         ){
             token
             user{
+                username
                 name
                 email
             }

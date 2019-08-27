@@ -35,16 +35,18 @@ export class RoomsScreen extends React.Component {
 
   componentDidMount() {
     roomsStore.init();
-    roomsStore.rooms.subscribe((rooms) => {
+    if (this.roomsSubscription) {
+      this.roomsSubscription.unsubscribe();
+      this.roomsSubscription = null;
+    }
+    this.roomsSubscription = roomsStore.rooms.subscribe((rooms) => {
       this.setState({rooms})
     })
-    console.log(this.props);
     this._notificationSubscription = Notifications.addListener(this._handleNotification.bind(this));
 
   }
 
   _handleNotification = (notification) => {
-    console.log(this.props);
     if (notification.origin === 'selected') {
       this.props.navigation.navigate('Chat');
       roomsStore.setCurrentRoom(notification.data.roomId);

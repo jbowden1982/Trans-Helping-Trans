@@ -2,6 +2,7 @@ import React from 'react';
 import { ExpoConfigView } from '@expo/samples';
 import { Button } from 'react-native-elements';
 import { authStore } from '../stores/AuthStore';
+import { roomsStore } from '../stores/RoomsStore';
 
 export class SettingsScreen extends React.Component {
 
@@ -17,6 +18,7 @@ export class SettingsScreen extends React.Component {
 
   onLogOut() {
     authStore.logout();
+    roomsStore.reset();
   }
 }
 

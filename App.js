@@ -96,20 +96,22 @@ export default class App extends React.Component {
       }),
     ]);
 
+    setTimeout(async () => {
+      try {
+        const res = await userStore.getCurrentUser();
+      } catch (err) {
+        authStore.logout();
+      }
 
-    try {
-      const res = await userStore.getCurrentUser();
-    } catch (err) {
-      authStore.logout();
-    }
+      try {
+        const user = await this.registerForPushNotificationsAsync();
 
-    try {
-      const user = await this.registerForPushNotificationsAsync();
+      } catch (err) {
+        console.log('in error');
+        console.log(err);
+      }
+    }, 1000)
 
-    } catch (err) {
-      console.log('in error');
-      console.log(err);
-    }
   }
 
   async registerForPushNotificationsAsync() {

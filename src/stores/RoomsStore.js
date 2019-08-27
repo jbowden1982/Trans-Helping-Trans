@@ -9,12 +9,19 @@ class RoomsStore {
   async init() {
     const rooms = await this.getRooms();
     this.rooms.next(this.rooms.value.concat(rooms));
-    this._roomsSubscription = await this._subscribeToNewRoom();
+    if (this._roomsSubscription) {
+      console.log('unsubscribing');
+      this._roomsSubscription.unsubscribe();
+      this._roomsSubscription = null;
+    }
+    this._roomsSubscription = this._subscribeToNewRoom();
     return this.rooms;
   }
 
+  reset() {
+    this.rooms = new BehaviorSubject([]);
+  }
   unsubscribe() {
-    this._roomsSubscription.unsubscribe();
   }
 
   getRooms() {
@@ -87,7 +94,11 @@ class RoomsStore {
       });
 
       this.currentRoom.next(updatedRoom.data.room);
-      this._subscribeToRoom(updatedRoom.data.room)
+      if (this.subscription) {
+        this.subscription.unsubscribe();
+        this.subscription = null;
+      }
+      this.subscription = this._subscribeToRoom(updatedRoom.data.room)
     })
   }
 
