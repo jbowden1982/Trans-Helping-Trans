@@ -25,8 +25,6 @@ export default class App extends React.Component {
   componentDidMount() {
     this.isAuthenticatedSubscription = authStore.isAuthenticated.subscribe(
       (value) => {
-        console.log('auth sub')
-        console.log(value);
         this.setState({isAuthenticated: value})
     })
   }
@@ -73,7 +71,6 @@ export default class App extends React.Component {
   loadResourcesAsync = async () => {
     const jwt = await AsyncStorage.getItem('jwt');
 
-    console.log(jwt);
     if (jwt !== null) {
       authStore.jwt.next(jwt);
     } else {
@@ -110,7 +107,6 @@ export default class App extends React.Component {
 function handleLoadingError(error) {
   // In this case, you might want to report the error to your error reporting
   // service, for example Sentry
-  console.log('error')
   console.warn(error);
 }
 

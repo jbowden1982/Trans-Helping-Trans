@@ -16,8 +16,6 @@ class AuthStore {
           setAuthorization(value);
           this.isAuthenticated.next(true);
         } catch (err) {
-          console.log("IN ERROR");
-
           this.isAuthenticated.next(false);
         }
       }
@@ -70,7 +68,6 @@ class AuthStore {
     this.username.next(null);
     this.password.next(null);
     AsyncStorage.removeItem('jwt');
-    console.log('logging out');
     this.isAuthenticated.next(false);
   }
 }

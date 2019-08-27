@@ -12,7 +12,6 @@ class UserStore {
   }
 
   getCurrentUser() {
-    console.log('getting user);')
     return new Promise(async (resolve, reject) => {
       try {
         let data = await client.query({
@@ -34,7 +33,6 @@ class UserStore {
         this.username = data.data.currentUser.username;
         this.name = data.data.currentUser.name;
         this.email = data.data.currentUser.email;
-        console.log('data')
         resolve(data.data.rooms);
       } catch (err) {
         reject(err);

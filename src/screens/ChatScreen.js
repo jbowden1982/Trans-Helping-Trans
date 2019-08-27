@@ -157,7 +157,6 @@ export class ChatScreen extends React.Component {
   keyExtractor = (item, index) => index.toString()
 
   renderItem = ({item, index}) => {
-    console.log(item)
     return (
       <View style={[styles.balloon, {
         backgroundColor: userStore.username === item.user.username ? '#ff00d2' : '#008bff',

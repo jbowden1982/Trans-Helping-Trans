@@ -49,7 +49,6 @@ class RoomsStore {
 
   setCurrentRoom(room) {
     return new Promise(async (resolve, reject) => {
-      console.log(room.id);
       let updatedRoom = await client.query({
         variables: {
           roomId: room.id,
@@ -77,7 +76,6 @@ class RoomsStore {
         `
       });
 
-      console.log(updatedRoom.data.room)
       this.currentRoom.next(updatedRoom.data.room);
       this._subscribeToRoom(updatedRoom.data.room)
     })
@@ -102,7 +100,6 @@ class RoomsStore {
           }
       `
     }).subscribe((response) => {
-      console.log(response)
       const updatedRoom = this.currentRoom.value;
       updatedRoom.messages = updatedRoom.messages.concat(response.data.messages);
       this.currentRoom.next(updatedRoom)
