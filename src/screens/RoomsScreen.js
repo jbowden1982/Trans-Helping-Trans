@@ -4,6 +4,7 @@ import { Input, Button, ListItem } from 'react-native-elements';
 import { Text } from 'native-base';
 import { client, gql } from '../services/ApolloService';
 import { roomsStore } from '../stores/RoomsStore';
+import { Notifications } from 'expo';
 
 export class RoomsScreen extends React.Component {
 
@@ -37,8 +38,19 @@ export class RoomsScreen extends React.Component {
     roomsStore.rooms.subscribe((rooms) => {
       this.setState({rooms})
     })
+    console.log(this.props);
+    this._notificationSubscription = Notifications.addListener(this._handleNotification.bind(this));
+
   }
 
+  _handleNotification = (notification) => {
+    console.log(this.props);
+    if (notification.origin === 'selected') {
+      this.props.navigation.navigate('Chat');
+      roomsStore.setCurrentRoom(notification.data.roomId);
+    }
+
+  }
   componentWillUnmount() {
     roomsStore.unsubscribe();
   }
@@ -103,7 +115,7 @@ export class RoomsScreen extends React.Component {
 
   listItemPressed = (item, index) => {
     this.props.navigation.navigate('Chat');
-    roomsStore.setCurrentRoom(item);
+    roomsStore.setCurrentRoom(item.id);
   }
 }
 const CREATE_ROOM = gql`

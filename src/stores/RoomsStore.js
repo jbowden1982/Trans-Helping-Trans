@@ -47,11 +47,21 @@ class RoomsStore {
     })
   }
 
-  setCurrentRoom(room) {
+  async joinRoom(roomId) {
+    const room = await client.mutate({
+      variables: {
+        roomId
+      },
+      mutation: JOIN_ROOM
+    })
+  }
+
+  setCurrentRoom(roomId) {
     return new Promise(async (resolve, reject) => {
+      this.joinRoom(roomId);
       let updatedRoom = await client.query({
         variables: {
-          roomId: room.id,
+          roomId: roomId,
           orderBy: "createdAt_ASC"
         },
         query: gql`
@@ -112,6 +122,7 @@ class RoomsStore {
       query: gql`
           subscription {
               newRoom {
+                  id
                   name
                   members{
                       name
@@ -124,5 +135,19 @@ class RoomsStore {
     })
   }
 }
+
+const JOIN_ROOM = gql`
+    mutation JoinRoom($roomId: String!){
+        joinRoom(
+            roomId: $roomId
+        ){
+            id
+            name
+            members{
+                name
+            }
+        }
+    }
+`
 
 export const roomsStore = new RoomsStore();

@@ -26,6 +26,7 @@
     "expo-asset": "^6.0.0",
     "expo-constants": "6.0.0",
     "expo-font": "~6.0.1",
+    "expo-permissions": "^6.0.0",
     "expo-web-browser": "6.0.0",
     "graphql": "^14.5.3",
     "graphql-tag": "^2.10.1",
