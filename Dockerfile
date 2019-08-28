@@ -16,7 +16,7 @@ RUN rm -rf /usr/share/nginx/html/*
 
 COPY --from=builder /app/web-build /var/www
 
-COPY /app/.web-config/nginx.conf /etc/nginx/nginx.conf
+COPY --from=builder /app/.web-config/nginx.conf /etc/nginx/nginx.conf
 
 EXPOSE 8888;
 
