@@ -6,7 +6,7 @@ import { InMemoryCache } from 'apollo-cache-inmemory'
 import { SubscriptionClient } from "subscriptions-transport-ws";
 import { HttpLink } from 'apollo-link-http';
 
-const URI = '34.73.117.139';
+const URI = 'api.transhelpingtrans.xyz';
 // const URI = '192.168.1.73';
 
 const hasSubscriptionOperation = ({ query: { definitions } }) =>
