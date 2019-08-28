@@ -1,11 +1,14 @@
 FROM node:10 as builder
 
-RUN npm install -g yarn && \
+COPY . /app
+
+RUN cd /app && \
+    npm install -g yarn && \
     yarn global add expo-cli && \
     yarn && \
     expo build:web;
 
-COPY . /app
+
 
 FROM nginx:stable
 
