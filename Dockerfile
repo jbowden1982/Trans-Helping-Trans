@@ -12,13 +12,13 @@ RUN cd /app && \
 
 FROM nginx:stable
 
+EXPOSE 8080
+
 RUN rm -rf /usr/share/nginx/html/*
 
 COPY --from=builder /app/web-build /var/www
 
 COPY --from=builder /app/.web-config/nginx.conf /etc/nginx/nginx.conf
-
-EXPOSE 8080;
 
 CMD ["nginx", "-g", "daemon off;"]
 
