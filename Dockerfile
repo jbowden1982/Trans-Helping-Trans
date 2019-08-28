@@ -18,7 +18,7 @@ COPY --from=builder /app/web-build /var/www
 
 COPY --from=builder /app/.web-config/nginx.conf /etc/nginx/nginx.conf
 
-EXPOSE 8888;
+EXPOSE 8080;
 
 CMD ["nginx", "-g", "daemon off;"]
 
