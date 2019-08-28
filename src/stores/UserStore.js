@@ -7,10 +7,6 @@ class UserStore {
   @observable email = '';
   @observable name = '';
 
-  constructor() {
-
-  }
-
   getCurrentUser() {
     return new Promise(async (resolve, reject) => {
       try {

@@ -2,9 +2,14 @@ import { BehaviorSubject } from 'rxjs';
 import { client, gql, setAuthorization } from '../services/ApolloService';
 import { AsyncStorage } from 'react-native';
 import { userStore } from './UserStore';
+import { observable } from 'mobx';
 
 
 class AuthStore {
+  // @observable isAuthenticated = false;
+  // @observable username;
+  // @observable password;
+  // @observable jwt;
   isAuthenticated = new BehaviorSubject(false);
   username = new BehaviorSubject(null);
   password = new BehaviorSubject(null);
